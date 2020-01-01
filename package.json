@@ -1,0 +1,34 @@
+{
+  "name": "guess-ts-main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
+    "prettier": "^1.19.1",
+    "typescript": "^3.7.4"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Alex0007/guess-ts-main/issues"
+  },
+  "homepage": "https://github.com/Alex0007/guess-ts-main#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
