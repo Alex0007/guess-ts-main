@@ -2,37 +2,43 @@ const path = require("path");
 const { _resolveMain, guessTsMain } = require("..");
 
 test("Dummy internal test", () => {
-  const packageJson = {
-    main: "dist/utils/custom.js"
-  };
-  const tsconfigJson = {
-    compilerOptions: {
-      outDir: "dist"
-    },
-    include: ["src"]
-  };
-  const result = _resolveMain({ packageJson, tsconfigJson });
+    const packageJson = {
+        main: "dist/utils/custom.js"
+    };
+    const tsconfigJson = {
+        compilerOptions: {
+            outDir: "dist"
+        },
+        include: ["src"]
+    };
+    const result = _resolveMain({ packageJson, tsconfigJson });
 
-  expect(result.pathToMain).toBe("utils/custom.ts");
+    expect(result.pathToMain).toBe("utils/custom.ts");
 });
 
 test("Dummy internal test 2", () => {
-  const packageJson = {};
-  const tsconfigJson = {
-    compilerOptions: {},
-    include: ["index.js"]
-  };
-  const result = _resolveMain({ packageJson, tsconfigJson });
-  expect(result.pathToMain).toBe("index.ts");
+    const packageJson = {};
+    const tsconfigJson = {
+        compilerOptions: {},
+        include: ["index.js"]
+    };
+    const result = _resolveMain({ packageJson, tsconfigJson });
+    expect(result.pathToMain).toBe("index.ts");
 });
 
-test("Dummy package test", () => {
-  const result = guessTsMain(path.resolve(__dirname, "sample-project"));
+test("Dummy package test 1", () => {
+    const result = guessTsMain(path.resolve(__dirname, "sample-project"));
 
-  expect(result).toContain("/sample-project/src/custom.ts");
+    expect(result).toContain("/sample-project/src/custom.ts");
+});
+
+test("Dummy package test 2", () => {
+    const result = guessTsMain(path.resolve(__dirname, "sample-project-2"));
+
+    expect(result).toContain("/sample-project-2/src/index.ts");
 });
 
 test("Self package test", () => {
-  const result = guessTsMain(path.resolve(__dirname, ".."));
-  expect(result).toMatch(/\/guess-ts-main\/src\/index\.ts$/);
+    const result = guessTsMain(path.resolve(__dirname, ".."));
+    expect(result).toMatch(/\/guess-ts-main\/src\/index\.ts$/);
 });
